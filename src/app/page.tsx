@@ -385,7 +385,7 @@ export default function Home() {
               {/* Car */}
               <img
                 ref={carRef}
-                src="/car.jpg"
+                src="/pi/car.jpg"
                 alt="Orange supercar top-down view"
                 className="car-wrapper car-image"
                 draggable={false}
