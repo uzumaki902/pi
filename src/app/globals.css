@@ -1,0 +1,534 @@
+@import "tailwindcss";
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Outfit", sans-serif;
+    overflow-x: hidden;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ──── Custom scrollbar ──── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ──── Hero Section ──── */
+.hero-section {
+  position: relative;
+  height: 400vh;
+  background: #0a0a0a;
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ──── Headline ──── */
+.headline-wrapper {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  text-align: center;
+  pointer-events: none;
+}
+
+.headline {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 800;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 50%, #ffffff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+  text-shadow: none;
+  white-space: nowrap;
+}
+
+.headline-sub {
+  font-size: clamp(1rem, 2vw, 1.8rem);
+  font-weight: 300;
+  letter-spacing: 1.2em;
+  text-transform: uppercase;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+/* ──── Track & Road ──── */
+.track-container {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.road {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(180deg, #1a1a1a 0%, #111111 50%, #1a1a1a 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 -2px 20px rgba(0, 0, 0, 0.8),
+    0 2px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Road markings */
+.road::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    #333 0px,
+    #333 40px,
+    transparent 40px,
+    transparent 80px
+  );
+  transform: translateY(-50%);
+  opacity: 0.4;
+}
+
+/* Road edges */
+.road::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 3px solid #2a2a2a;
+  border-bottom: 3px solid #2a2a2a;
+  pointer-events: none;
+}
+
+/* ──── Car ──── */
+.car-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-100%, -50%);
+  z-index: 15;
+  will-change: transform;
+}
+
+.car-image {
+  height: 180px;
+  width: auto;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+  transition: filter 0.3s ease;
+}
+
+/* ──── Trail ──── */
+.trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  z-index: 5;
+  will-change: width;
+  overflow: hidden;
+}
+
+.trail-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(69, 219, 125, 0.9) 0%,
+    rgba(69, 219, 125, 0.6) 60%,
+    rgba(69, 219, 125, 0.2) 90%,
+    transparent 100%
+  );
+}
+
+/* ──── Stats Cards ──── */
+.stats-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.stat-card {
+  position: absolute;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  pointer-events: auto;
+  min-width: 200px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  will-change: transform, opacity;
+}
+
+.stat-card .stat-value {
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-card .stat-label {
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
+  font-weight: 400;
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+}
+
+/* Card variants */
+.stat-card--lime {
+  background: rgba(208, 255, 0, 0.12);
+  border-color: rgba(208, 255, 0, 0.2);
+}
+.stat-card--lime .stat-value {
+  color: #d0ff00;
+}
+.stat-card--lime .stat-label {
+  color: rgba(208, 255, 0, 0.75);
+}
+
+.stat-card--cyan {
+  background: rgba(0, 210, 255, 0.12);
+  border-color: rgba(0, 210, 255, 0.2);
+}
+.stat-card--cyan .stat-value {
+  color: #00d2ff;
+}
+.stat-card--cyan .stat-label {
+  color: rgba(0, 210, 255, 0.75);
+}
+
+.stat-card--orange {
+  background: rgba(255, 140, 50, 0.12);
+  border-color: rgba(255, 140, 50, 0.2);
+}
+.stat-card--orange .stat-value {
+  color: #ff8c32;
+}
+.stat-card--orange .stat-label {
+  color: rgba(255, 140, 50, 0.75);
+}
+
+.stat-card--dark {
+  background: rgba(40, 40, 40, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.stat-card--dark .stat-value {
+  color: #ffffff;
+}
+.stat-card--dark .stat-label {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ──── Background Ambiance ──── */
+.bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.bg-glow--green {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(69, 219, 125, 0.15), transparent 70%);
+  top: 20%;
+  left: -10%;
+}
+
+.bg-glow--blue {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 150, 255, 0.1), transparent 70%);
+  bottom: 10%;
+  right: -5%;
+}
+
+/* ──── Particle dots ──── */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ──── After-Hero Content ──── */
+.content-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  position: relative;
+  z-index: 30;
+  background: #0a0a0a;
+}
+
+.content-section h2 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffffff, #888);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content-section p {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  color: #888;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+/* ──── Features Grid ──── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 4rem;
+  padding: 0 2rem;
+}
+
+.feature-card {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1.7;
+}
+
+/* ──── Footer ──── */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.footer a {
+  color: #45db7d;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: #6eff9e;
+}
+
+/* ──── Speed lines overlay ──── */
+.speed-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 8;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.speed-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  will-change: transform;
+}
+
+/* ──── Scroll indicator ──── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+}
+
+.scroll-indicator span {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid #555;
+  border-bottom: 2px solid #555;
+  transform: rotate(45deg);
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+@keyframes bounceArrow {
+  0%,
+  100% {
+    transform: rotate(45deg) translate(0, 0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotate(45deg) translate(5px, 5px);
+    opacity: 1;
+  }
+}
+
+/* ──── Progress bar ──── */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #45db7d, #00d2ff);
+  z-index: 100;
+  width: 0;
+  will-change: width;
+}
+
+/* ──── Responsive ──── */
+@media (max-width: 768px) {
+  .headline {
+    letter-spacing: 0.25em;
+  }
+
+  .headline-sub {
+    letter-spacing: 0.5em;
+    font-size: 0.8rem;
+  }
+
+  .road {
+    height: 150px;
+  }
+
+  .car-image {
+    height: 130px;
+  }
+
+  .stat-card {
+    padding: 1rem 1.25rem;
+    min-width: 150px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.8rem;
+  }
+
+  .stat-card .stat-label {
+    font-size: 0.65rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
